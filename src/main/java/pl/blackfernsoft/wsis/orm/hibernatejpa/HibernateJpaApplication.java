@@ -1,10 +1,9 @@
 package pl.blackfernsoft.wsis.orm.hibernatejpa;
 
 import pl.blackfernsoft.wsis.orm.hibernatejpa.dao.CarDao;
+import pl.blackfernsoft.wsis.orm.hibernatejpa.dao.CurrencyDao;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.dao.CustomerDao;
-import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.Car;
-import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.Customer;
-import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.CustomerPK;
+import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.*;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.CarType;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.Color;
 
@@ -19,6 +18,7 @@ public class HibernateJpaApplication {
 
     private static final EntityManager em = HibernateUtil.getEntityManager();
     private static final CarDao carDao = new CarDao(em);
+    private static final CurrencyDao currencyDao = new CurrencyDao(em);
     private static final CustomerDao customerDao = new CustomerDao(em);
 
     public static void main(String[] args) {
@@ -50,6 +50,35 @@ public class HibernateJpaApplication {
             System.out.println(customer);
 
 
+            // Create currencies
+
+            Currency euroDE = new Currency();
+            euroDE.setCountry("Germany");
+            euroDE.setName("Euro");
+            euroDE.setSymbol("€");
+
+            Currency dollarAu = new Currency();
+            dollarAu.setCountry("Australia");
+            dollarAu.setName("Dollar");
+            dollarAu.setSymbol("$");
+
+            Currency dollarUSA = new Currency();
+            dollarUSA.setCountry("USA");
+            dollarUSA.setName("Dollar");
+            dollarUSA.setSymbol("$");
+
+            em.getTransaction().begin();
+            currencyDao.save(euroDE);
+            currencyDao.save(dollarAu);
+            currencyDao.save(dollarUSA);
+            em.getTransaction().commit();
+
+            printAllCurrencies();
+
+            // Find currency by composite key
+            Currency retrievedCurrency = currencyDao.findById(new CurrencyId("Dollar", "Australia"));
+            System.out.println(retrievedCurrency);
+
         } finally {
             // Close db connection
             HibernateUtil.closeEntityManager();
@@ -68,6 +97,14 @@ public class HibernateJpaApplication {
         customerDao.save(customer);
 
         return customer;
+    }
+
+    private static void printAllCurrencies() {
+        System.out.println("== PRINT ALL CURRENCIES");
+        List<Currency> currencies = currencyDao.findAll();
+        for (Currency currency : currencies) {
+            System.out.println(currency);
+        }
     }
 
     private static void printAllCustomers() {
