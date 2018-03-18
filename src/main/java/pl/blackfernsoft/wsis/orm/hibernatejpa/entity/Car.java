@@ -4,10 +4,7 @@ import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.CarType;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.Color;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "CAR")
@@ -39,7 +36,14 @@ public class Car {
     @ElementCollection
     @CollectionTable(name = "RENTAL_DATES", joinColumns = @JoinColumn(name = "CAR_ID"))
     @Column(name = "RENTAL_DATES")
-    private Collection<Date> rentalDates = new ArrayList<Date>();
+    private Collection<Date> rentalDates = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CAR_ID")
+    private Set<TechnicalReview> technicalReview = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cars")
+    private List<Customer> customers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -97,6 +101,22 @@ public class Car {
         this.rentalDates = rentalDates;
     }
 
+    public Set<TechnicalReview> getTechnicalReview() {
+        return technicalReview;
+    }
+
+    public void setTechnicalReview(Set<TechnicalReview> technicalReview) {
+        this.technicalReview = technicalReview;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -107,6 +127,8 @@ public class Car {
                 ", carType=" + carType +
                 ", rentalAddress=" + rentalAddress +
                 ", rentalDates=" + rentalDates +
+                ", technicalReview=" + technicalReview +
+                ", customers size=" + (customers != null ? customers.size() : "-") +
                 '}';
     }
 }
