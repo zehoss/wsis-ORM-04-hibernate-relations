@@ -4,6 +4,7 @@ import pl.blackfernsoft.wsis.orm.hibernatejpa.dao.CarDao;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.dao.CustomerDao;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.Car;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.Customer;
+import pl.blackfernsoft.wsis.orm.hibernatejpa.entity.CustomerPK;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.CarType;
 import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.Color;
 
@@ -34,10 +35,19 @@ public class HibernateJpaApplication {
 
             // Create customers
             em.getTransaction().begin();
-            customerDao.save(createCustomer("Stefan", "Kowalski"));
-            customerDao.save(createCustomer("Adam", "Małysz"));
+            customerDao.save(createCustomer("Stefan", "Kowalski", "85199535949"));
+            customerDao.save(createCustomer("Adam", "Małysz", "95063435949"));
             em.getTransaction().commit();
             printAllCustomers();
+
+            // Find customer using composite key
+            CustomerPK customerPK = new CustomerPK();
+            customerPK.setFirstName("Adam");
+            customerPK.setLastName("Małysz");
+            customerPK.setPESEL("95063435949");
+
+            Customer customer = customerDao.findById(customerPK);
+            System.out.println(customer);
 
 
         } finally {
@@ -46,10 +56,17 @@ public class HibernateJpaApplication {
         }
     }
 
-    private static Customer createCustomer(String firstName, String lastName) {
+    private static Customer createCustomer(String firstName, String lastName, String pesel) {
+        CustomerPK customerPK = new CustomerPK();
+        customerPK.setFirstName(firstName);
+        customerPK.setLastName(lastName);
+        customerPK.setPESEL(pesel);
+
         Customer customer = new Customer();
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
+        customer.setPrimaryKey(customerPK);
+
+        customerDao.save(customer);
+
         return customer;
     }
 

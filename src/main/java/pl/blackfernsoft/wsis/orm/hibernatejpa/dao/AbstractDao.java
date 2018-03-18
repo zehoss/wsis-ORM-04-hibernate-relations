@@ -5,8 +5,8 @@ import java.util.List;
 
 public abstract class AbstractDao<T> {
 
-    private EntityManager em;
-    private Class<T> entityClass;
+    protected EntityManager em;
+    protected Class<T> entityClass;
 
     public AbstractDao(EntityManager em, Class<T> entityClass) {
         this.em = em;
