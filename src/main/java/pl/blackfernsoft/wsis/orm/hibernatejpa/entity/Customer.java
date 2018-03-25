@@ -14,7 +14,6 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CAR_ID")
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
