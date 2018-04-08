@@ -1,29 +1,14 @@
 package pl.blackfernsoft.wsis.orm.hibernatejpa.entity;
 
 import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.CarType;
-import pl.blackfernsoft.wsis.orm.hibernatejpa.enums.Color;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "CAR")
-public class Car {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "NAME",
-            nullable = false,
-            insertable = true,
-            updatable = true)
-    private String name;
+public class Car extends Vehicle {
 
     private Integer numberOfSeats;
-
-    @Enumerated(EnumType.STRING)
-    private Color color;
 
     @Enumerated(EnumType.ORDINAL)
     private CarType carType;
@@ -37,28 +22,13 @@ public class Car {
     @Column(name = "RENTAL_DATES")
     private Collection<Date> rentalDates = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "CAR_ID")
     private Set<TechnicalReview> technicalReview = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cars")
     private List<Customer> customers = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Integer getNumberOfSeats() {
         return numberOfSeats;
@@ -66,14 +36,6 @@ public class Car {
 
     public void setNumberOfSeats(Integer numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public CarType getCarType() {
@@ -119,15 +81,12 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", numberOfSeats=" + numberOfSeats +
-                ", color=" + color +
+                "numberOfSeats=" + numberOfSeats +
                 ", carType=" + carType +
                 ", rentalAddress=" + rentalAddress +
                 ", rentalDates=" + rentalDates +
                 ", technicalReview=" + technicalReview +
-                ", customers size=" + (customers != null ? customers.size() : "-") +
-                '}';
+                ", customers=" + customers +
+                "} " + super.toString();
     }
 }

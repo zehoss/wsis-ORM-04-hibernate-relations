@@ -67,7 +67,7 @@ public class Customer {
                 "id=" + id +
                 ", creationDate=" + creationDate +
                 ", address=" + address +
-                ", cars=" + cars +
+                ", cars=" + (cars != null ? cars.size() : "null") +
                 '}';
     }
 }

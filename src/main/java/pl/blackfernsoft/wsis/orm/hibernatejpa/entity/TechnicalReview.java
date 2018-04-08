@@ -19,9 +19,11 @@ public class TechnicalReview {
     @Enumerated(EnumType.STRING)
     private TechnicalReviewResultEnum result;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CAR_ID")
     private Car car;
+
+    // getters and setters
 
     public Long getId() {
         return id;
