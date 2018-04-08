@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+// Can't set @Table if inheritance strategy is SINGLE_TABLE
 public class Car extends Vehicle {
 
     private Integer numberOfSeats;

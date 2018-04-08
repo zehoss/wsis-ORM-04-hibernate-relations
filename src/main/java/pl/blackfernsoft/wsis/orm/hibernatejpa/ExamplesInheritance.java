@@ -54,7 +54,17 @@ public class ExamplesInheritance extends AbstractCommonExamples {
         em.getTransaction().commit();
 
         printAll(Vehicle.class);
+        // from VEHICLE car0_ where car0_.VEHICLE_TYPE='Car'
+        printAll(Car.class);
+        // from VEHICLE motorbike0_ where motorbike0_.VEHICLE_TYPE='MOTOR'
+        printAll(Motorbike.class);
         printAll(Customer.class);
+
+        em.clear();
+
+        Car dbCar = carDao.findById(2L);
+        System.out.println(dbCar);
+
     }
 
 }

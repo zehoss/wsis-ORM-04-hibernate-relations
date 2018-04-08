@@ -1,13 +1,12 @@
 package pl.blackfernsoft.wsis.orm.hibernatejpa.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("MOTOR")
+// Can't set @Table if inheritance strategy is SINGLE_TABLE
 public class Motorbike extends Vehicle {
 
     @Column(name = "ENGINE_SIZE_CM3")

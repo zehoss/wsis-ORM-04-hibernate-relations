@@ -9,11 +9,13 @@ import java.util.Date;
 
 //@MappedSuperclass
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "VEHICLE_TYPE")
+@Table(name = "VEHICLE")
 public abstract class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "NAME", nullable = false)
