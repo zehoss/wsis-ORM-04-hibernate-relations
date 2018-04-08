@@ -26,7 +26,7 @@ public class Car extends Vehicle {
     @JoinColumn(name = "CAR_ID")
     private Set<TechnicalReview> technicalReview = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "cars")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "vehicles")
     private List<Customer> customers = new ArrayList<>();
 
 
@@ -86,7 +86,6 @@ public class Car extends Vehicle {
                 ", rentalAddress=" + rentalAddress +
                 ", rentalDates=" + rentalDates +
                 ", technicalReview=" + technicalReview +
-                ", customers=" + customers +
                 "} " + super.toString();
     }
 }

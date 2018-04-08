@@ -11,12 +11,12 @@ public class HibernateJpaApplication {
 //            ExamplesBasicMapping.runMappingExamples();
 
             // Run inheritance examples
-//            ExamplesInheritance.runInheritanceExamples();
+            ExamplesInheritance.runInheritanceExamples();
 
             // Run lazy loading examples
 //            ExampleLazyLoading.runLazyLoadingExample();
 
-            ExampleCascade.runCascadeExample();
+//            ExampleCascade.runCascadeExample();
 
         } catch (Exception e) {
             // rollback db changes in case of any exception

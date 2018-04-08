@@ -29,7 +29,7 @@ public class ExamplesBasicMapping extends AbstractCommonExamples {
         Car volvo = createCar("Volvo", Color.BLUE, CarType.AWD, "DW-48752");
 
         Customer customer = createCustomer("Stefan", "Kowalski", "85199535949");
-        customer.getCars().add(volvo);
+        customer.getVehicles().add(volvo);
         volvo.getCustomers().add(customer);
 
         em.getTransaction().begin();

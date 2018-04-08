@@ -7,8 +7,7 @@ import javax.persistence.Persistence;
 public class HibernateUtil {
 
     // Configuration from file resources/META-INF/persistence.xml
-    private static EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("persistenceUnit-h2");
+    private static EntityManagerFactory emf;
 
     private static EntityManager entityManager;
 
@@ -17,6 +16,9 @@ public class HibernateUtil {
 
 
     public static EntityManager getEntityManager() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("persistenceUnit-h2");
+        }
         if (entityManager == null) {
             entityManager = emf.createEntityManager();
         }
@@ -24,8 +26,11 @@ public class HibernateUtil {
     }
 
     public static void closeEntityManager() {
-        entityManager.close();
-        emf.close();
+        if (entityManager != null)
+            entityManager.close();
+
+        if (emf != null)
+            emf.close();
     }
 
 }

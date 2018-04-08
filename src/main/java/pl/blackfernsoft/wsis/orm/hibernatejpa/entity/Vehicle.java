@@ -7,18 +7,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-@MappedSuperclass
+//@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "NAME",
-            nullable = false,
-            insertable = true,
-            updatable = true)
+    @Column(name = "NAME", nullable = false)
     private String name;
+
+    // other fields, getters and setters
 
     @Column(name = "PLATES_NUMBER")
     private String platesNumber;

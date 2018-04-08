@@ -24,10 +24,10 @@ public class Customer {
     private Address address;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "CUSTOMER_CAR",
+    @JoinTable(name = "CUSTOMER_VEHICLE",
             joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CAR_ID"))
-    private List<Car> cars = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     public Date getCreationDate() {
         return creationDate;
@@ -45,12 +45,12 @@ public class Customer {
         this.address = address;
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setVehicles(List<Vehicle> cars) {
+        this.vehicles = cars;
     }
 
     public Long getId() {
@@ -67,7 +67,7 @@ public class Customer {
                 "id=" + id +
                 ", creationDate=" + creationDate +
                 ", address=" + address +
-                ", cars=" + (cars != null ? cars.size() : "null") +
+                ", vehicles=" + vehicles +
                 '}';
     }
 }
