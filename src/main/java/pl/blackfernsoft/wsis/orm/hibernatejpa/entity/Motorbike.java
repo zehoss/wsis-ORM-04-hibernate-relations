@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("MOTOR")
-// Can't set @Table if inheritance strategy is SINGLE_TABLE
+@Table(name = "MOTOR")
 public class Motorbike extends Vehicle {
 
     @Column(name = "ENGINE_SIZE_CM3")

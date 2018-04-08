@@ -9,8 +9,7 @@ import java.util.Date;
 
 //@MappedSuperclass
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "VEHICLE_TYPE")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "VEHICLE")
 public abstract class Vehicle {
 
