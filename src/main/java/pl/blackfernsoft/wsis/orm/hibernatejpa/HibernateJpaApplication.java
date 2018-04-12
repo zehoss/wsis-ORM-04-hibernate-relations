@@ -8,15 +8,17 @@ public class HibernateJpaApplication {
         try {
 
             // Run basic mapping examples
-//            ExamplesBasicMapping.runMappingExamples();
+            ExamplesBasicMapping.runMappingExamples();
 
             // Run inheritance examples
             ExamplesInheritance.runInheritanceExamples();
 
             // Run lazy loading examples
-//            ExampleLazyLoading.runLazyLoadingExample();
+            ExampleLazyLoading.runLazyLoadingExample();
 
-//            ExampleCascade.runCascadeExample();
+            ExampleCascade.runCascadeExample();
+
+            ExampleNamedQuery.runNamedQueryExample();
 
         } catch (Exception e) {
             // rollback db changes in case of any exception

@@ -7,6 +7,11 @@ import java.util.*;
 
 @Entity
 // Can't set @Table if inheritance strategy is SINGLE_TABLE
+@NamedQueries({
+        @NamedQuery(
+                name = "Car.findIfExpiredReview",
+                query = "from Vehicle c where c.firstRegistrationDate <= :firstRegistrationDate ")
+})
 public class Car extends Vehicle {
 
     private Integer numberOfSeats;

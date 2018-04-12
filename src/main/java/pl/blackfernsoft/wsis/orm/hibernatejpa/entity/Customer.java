@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Customer.findCustomersWithXCars",
+                query = "from Customer c where c.vehicles.size >= :numberOfCars"
+        )
+})
 @Entity
 public class Customer {
 
